@@ -38,7 +38,7 @@
             lbDni = new Label();
             GroupBox3 = new GroupBox();
             btnCausa = new Button();
-            textBox1 = new TextBox();
+            tbCausa = new TextBox();
             lbCausa = new Label();
             GroupBox1.SuspendLayout();
             GroupBox2.SuspendLayout();
@@ -131,7 +131,7 @@
             // 
             GroupBox3.BackColor = SystemColors.ButtonHighlight;
             GroupBox3.Controls.Add(btnCausa);
-            GroupBox3.Controls.Add(textBox1);
+            GroupBox3.Controls.Add(tbCausa);
             GroupBox3.Controls.Add(lbCausa);
             GroupBox3.Location = new Point(20, 461);
             GroupBox3.Name = "GroupBox3";
@@ -150,12 +150,12 @@
             btnCausa.UseVisualStyleBackColor = true;
             btnCausa.Click += btnCausa_Click;
             // 
-            // textBox1
+            // tbCausa
             // 
-            textBox1.Location = new Point(94, 84);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(233, 23);
-            textBox1.TabIndex = 3;
+            tbCausa.Location = new Point(94, 84);
+            tbCausa.Name = "tbCausa";
+            tbCausa.Size = new Size(233, 23);
+            tbCausa.TabIndex = 3;
             // 
             // lbCausa
             // 
@@ -198,7 +198,7 @@
         private Button btnVerDNI;
         private TextBox tbDNI;
         private Label lbDni;
-        private TextBox textBox1;
+        private TextBox tbCausa;
         private Label lbCausa;
         private Button btnCausa;
     }

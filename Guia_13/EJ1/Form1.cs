@@ -69,7 +69,6 @@ namespace EJ1
         }
         int VerExpedientePorDNI(int dni, int[] lista)
         {
-            int itx = -1;
             for (int i = 0; i < contador; i++)
             {
                 if (lista[i] == dni)
@@ -77,7 +76,19 @@ namespace EJ1
                     return i;
                 }
             }
-            return itx;
+            return -1;
+        }
+        int VerExpedientePorNumero(int numero)
+        {
+            int inx = -1;
+            for (int i = 0; i < contador; i++)
+            {
+                if (expediente[i] == numero)
+                {
+                    inx = i;
+                }
+            }
+            return inx;
         }
         #endregion
         private void btnRegistrarN_Click(object sender, EventArgs e)
@@ -142,12 +153,12 @@ namespace EJ1
                 aux[i] = DNI[i];
             }
             int inx = VerExpedientePorDNI(dni, aux);
-            VerExpedientes(inx, out exp, out dni, out monto);
             if (inx != -1)
             {
+                VerExpedientes(inx, out exp, out dni, out monto);
                 FVerExpedientes.lsbExpedientes.Items.Add($"{exp} - {dni} - {monto}");
             }
-            else if(inx == -1) FVerExpedientes.lsbExpedientes.Items.Add("No se encontraron resultados");
+            else FVerExpedientes.lsbExpedientes.Items.Add("No se encontraron resultados");
             FVerExpedientes.ShowDialog();
             FVerExpedientes.lsbExpedientes.Items.Clear();
             tbDNI.Clear();
@@ -155,7 +166,19 @@ namespace EJ1
 
         private void btnCausa_Click(object sender, EventArgs e)
         {
-
+            int numero = Convert.ToInt32(tbCausa.Text);
+            int dni;
+            double monto;
+            int inx = VerExpedientePorNumero(numero);
+            if (inx != -1)
+            {
+                VerExpedientes(inx, out numero, out dni, out monto);
+                FVerExpedientes.lsbExpedientes.Items.Add($"{numero} - {dni} - {monto}");
+                FVerExpedientes.ShowDialog();
+            }
+            else MessageBox.Show("No se encontraron resultados");
+            FVerExpedientes.lsbExpedientes.Items.Clear();
+            tbDNI.Clear();
         }
     }
 }

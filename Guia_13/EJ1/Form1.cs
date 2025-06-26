@@ -8,8 +8,10 @@ namespace EJ1
         {
             InitializeComponent();
         }
+        
         FormExpediente formExpediente = new FormExpediente();
         FormVerExpediente FVerExpedientes = new FormVerExpediente();
+        
         #region Varibles
         int[] expediente = new int[100];
         int[] DNI = new int[100];
@@ -65,19 +67,17 @@ namespace EJ1
             prom = acum / contador;
             return prom;
         }
-        int[] VerExpedientePorDNI(int dni, out int cantidad)
+        int VerExpedientePorDNI(int dni, int[] lista)
         {
-            cantidad = 0;
-            int[] idx = new int[contador];
+            int itx = -1;
             for (int i = 0; i < contador; i++)
             {
-                if (DNI[i] == dni)
+                if (lista[i] == dni)
                 {
-                    idx[cantidad] = i;
-                    cantidad++;
+                    return i;
                 }
             }
-            return idx;
+            return itx;
         }
         #endregion
         private void btnRegistrarN_Click(object sender, EventArgs e)
@@ -107,6 +107,7 @@ namespace EJ1
             {
                 VerExpedientes(i, out exp, out dnis, out montos);
                 FVerExpedientes.lsbExpedientes.Items.Add($"{exp} - {dnis} - {montos}");
+                //FVerExpedientes.lsbExpedientes.Items.Add
             }
             FVerExpedientes.ShowDialog();
             FVerExpedientes.lsbExpedientes.Items.Clear();
@@ -132,18 +133,21 @@ namespace EJ1
 
         private void btnVerDNI_Click(object sender, EventArgs e)
         {
-            int cantidad;
-            int numero;
-            double monto;
+            int exp;
             int dni = Convert.ToInt32(tbDNI.Text);
-            int[] inx = new int[100];
-            inx = VerExpedientePorDNI(dni, out cantidad);
-            for (int i = 0; i < cantidad; i++)
+            double monto;
+            int[] aux = new int[contador];
+            for (int i = 0; i < contador; i++)
             {
-                VerExpedientes(inx[i], out numero, out cantidad, out monto);
-                FVerExpedientes.lsbExpedientes.Items.Add($"{numero} - {dni} - {monto}");
+                aux[i] = DNI[i];
             }
-            if (cantidad == 0) FVerExpedientes.lsbExpedientes.Items.Add("No se encontraron resultados");
+            int inx = VerExpedientePorDNI(dni, aux);
+            VerExpedientes(inx, out exp, out dni, out monto);
+            if (inx != -1)
+            {
+                FVerExpedientes.lsbExpedientes.Items.Add($"{exp} - {dni} - {monto}");
+            }
+            else if(inx == -1) FVerExpedientes.lsbExpedientes.Items.Add("No se encontraron resultados");
             FVerExpedientes.ShowDialog();
             FVerExpedientes.lsbExpedientes.Items.Clear();
             tbDNI.Clear();
